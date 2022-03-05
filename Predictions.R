@@ -12,7 +12,12 @@ df <- df %>%
 
 List <- get_design(df)
 
-over_under_ols(List, "Baylor", "Oklahoma State")
+List_nfl <- get_design(regssn2021)
+over_under_ols(List_nfl, "Chiefs", "Bills")
+over_under_ols(List_nfl, "Bengals", "Rams")
+
+
+over_under_ols(List, "UCSanDiego", "California")
 point_spread_ols(List, "Baylor", "Oklahoma State")
 
 team_detect(List, "Baylor")
@@ -43,3 +48,18 @@ colnames(X)[1] <- "int"
 #end <- paste(data$Year[N], ", week ", data$Week[N])
 
 head(X)
+
+X.X <- t(X) %*% X
+invX.X <- MASS::ginv(X.X)
+colnames(X)
+
+cont <- c(1, rep(0,length(teams)))
+cont[colnames(X) == "UCSanDiego"] <- 1
+cont[colnames(X) == "California"] <- -1
+
+tcont <- t(cont)
+
+tcont%*%(invX.X)%*%t(X) %*% as.matrix(Y_diff)
+sum(is.na(Y_diff))
+
+#There are 5 rows of missing scores in Y_diff.
