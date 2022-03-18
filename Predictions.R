@@ -2,9 +2,9 @@ library(NFLpredictions)
 library(dplyr)
 library(tidyr)
 
-df <- read.csv("data/scores_3-13.csv")
+df <- read.csv("data/scores_3-18.csv")
 head(df)
-names(regssn2021)
+#names(regssn2021)
 
 df <- df %>% 
   mutate(Score = Final, Year = 2021) %>% 
@@ -26,7 +26,7 @@ winprob_emp(design, "Baylor", "OklahomaStat")
 team_detect(design, "Iowa")
 team_detect(design, "Purdue")
 
-winprob_emp(design, "Purdue", "Iowa", home_effect = FALSE)
+winprob_emp(design, "Richmond", "Iowa", home_effect = FALSE)
 winprob_ols(design, "Purdue", "Iowa", home_effect = FALSE)
 
 eML_ols(design, "Iowa", "Purdue", hBL = 105, aBL = -125, home_effect = FALSE)
@@ -35,10 +35,11 @@ over_under_ols(design, "Iowa", "Purdue")
 
 
 #
-team_detect(design, "TexasSouther")
-winprob_emp(design, "TexasA&MCorpus", "TexasSouthern", home_effect = FALSE)
-eSpread_ols(design, "TexasA&MCorpus", "TexasSouthern", hspread = 3.5, home_effect = FALSE)
-eML_emp(design, "TexasA&MCorpus", "TexasSouthern", hBL = 145, aBL = -165, home_effect = FALSE)
+team_detect(design, "LSU")
+winprob_ols(design, "NotreDame", "Alabama", home_effect = FALSE)
+winprob_emp(design, "TCU", "SetonHall", home_effect = FALSE)
+eSpread_ols(design, "NotreDame", "Alabama", hspread = 4, home_effect = FALSE)
+eML_ols(design, "NotreDame", "Alabama", hBL = 155, aBL = -180, home_effect = FALSE)
 over_under_ols(design, "TexasA&MCorpus", "TexasSouthern")
 
 team_detect(design, "IndianaU")
